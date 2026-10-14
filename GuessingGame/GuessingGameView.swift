@@ -20,7 +20,7 @@ import SwiftUI
 // so that every part of the game below can use them.
 // TRY: Change highestNumber to 10 for an easy game, or to 1000 for a hard one.
 let lowestNumber: Int = 1
-let highestNumber: Int = 10
+let highestNumber: Int = 100
 
 // The game itself: what it remembers, what it shows on the screen,
 // and what it does when you click a button.
@@ -135,7 +135,7 @@ struct GuessingGameView: View {
         .fontDesign(.rounded)
         .controlSize(.large)
         // TRY: Change indigo to another colour, such as teal, pink or orange.
-        .tint(Color.indigo)
+        .tint(Color.teal)
         // How big the game's window is on the Mac. It can be made taller or wider.
         .frame(minWidth: 420, minHeight: 640)
     }
