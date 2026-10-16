@@ -9,10 +9,8 @@
 //  and it counts your guesses. When you find the number,
 //  you can play again.
 //
-//  WHAT IT DOES NOT DO YET
-//  It does not tell you if your guess is too high or too low.
-//  That part is up to you.
-//
+//  NEW IN LESSON 3
+//  It tells you if your guess is too high or too low.
 
 import SwiftUI
 
@@ -21,13 +19,13 @@ import SwiftUI
 // TRY: Change highestNumber to 10 for an easy game, or to 1000 for a hard one.
 let lowestNumber: Int = 1
 let highestNumber: Int = 100
-
+let playerName: String = "Dhiral"
 // The game itself: what it remembers, what it shows on the screen,
 // and what it does when you click a button.
 struct GuessingGameView: View {
 
     // MARK: - Stored properties
-
+    @State var gamesWon: Int = 0
     // Each @State variable is something the game remembers.
     // When one of them changes, the screen updates by itself.
 
@@ -128,7 +126,7 @@ struct GuessingGameView: View {
 
             HStack {
                 Image(systemName: "dice.fill")
-                Text("Guesses so far: \(guessCount)")
+                Text("Guesses so far: \(guessCount)    Games won: \(gamesWon)")
             }
             .font(.headline)
             .foregroundStyle(Color.secondary)
@@ -147,23 +145,28 @@ struct GuessingGameView: View {
 
     // Checks the player's guess against the secret number.
     func checkGuess() {
-
+ 
         // One more guess has been made.
         guessCount += 1
-
+ 
         if guess == secretNumber {
-            message = "Yes! \(secretNumber) is my number!"
-            messageSymbol = "laser.burst"
+            message = "Yes, \(playerName)! \(secretNumber) is my number."
+            messageSymbol = "star.circle.fill"
             messageColor = Color.green
             gameIsOver = true
+            gamesWon += 1
         } else {
-            // TRY: Change this message. Make it kinder, or sillier.
-            message = "Nope, not \(guess) have another go!"
-            messageSymbol = "hand.thumbsdown.fill"
-            messageColor = Color.orange
+            if guess < secretNumber {
+                message = "\(guess) is too low. Go higher."
+                messageSymbol = "arrow.up.circle.fill"
+                messageColor = Color.blue
+            } else {
+                message = "\(guess) is too high. Go lower."
+                messageSymbol = "arrow.down.circle.fill"
+                messageColor = Color.red
+            }
         }
     }
-
     // Makes the guess 10 smaller, but never smaller than the lowest number.
     func lowerGuessByTen() {
         guess -= 10
