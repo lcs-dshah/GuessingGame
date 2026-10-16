@@ -52,7 +52,7 @@ struct GuessingGameView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-
+            
             // The title at the top of the screen.
             HStack {
                 Image(systemName: "sparkle.magnifyingglass")
@@ -64,9 +64,9 @@ struct GuessingGameView: View {
             // Shrink the title a little if it does not fit on one line.
             .lineLimit(1)
             .minimumScaleFactor(0.5)
-
+            
             Spacer()
-
+            
             // The message card: what the game has to say to you.
             VStack(spacing: 12) {
                 Image(systemName: messageSymbol)
@@ -80,15 +80,15 @@ struct GuessingGameView: View {
             .frame(maxWidth: .infinity, minHeight: 180)
             .background(messageColor.opacity(0.15))
             .clipShape(RoundedRectangle(cornerRadius: 24))
-
+            
             Spacer()
-
+            
             // The guess you are about to make, shown nice and big.
             // TRY: Change the size of this number from 96 to something else.
             Text("\(guess)")
                 .font(.system(size: 96, weight: .bold))
                 .monospacedDigit()
-
+            
             // Four buttons to change the guess.
             // The code inside the braces runs when that button is clicked.
             HStack(spacing: 8) {
@@ -110,7 +110,7 @@ struct GuessingGameView: View {
             .bold()
             .monospacedDigit()
             .disabled(gameIsOver)
-
+            
             // Show the Guess button while the game is on,
             // and the Play Again button once the number is found.
             if gameIsOver {
@@ -126,9 +126,12 @@ struct GuessingGameView: View {
                 .buttonStyle(.borderedProminent)
             }
 
-            Text("Guesses so far: \(guessCount)")
-                .font(.headline)
-                .foregroundStyle(Color.secondary)
+            HStack {
+                Image(systemName: "dice.fill")
+                Text("Guesses so far: \(guessCount)")
+            }
+            .font(.headline)
+            .foregroundStyle(Color.secondary)
         }
         .padding(32)
         .font(.title2)
@@ -150,13 +153,13 @@ struct GuessingGameView: View {
 
         if guess == secretNumber {
             message = "Yes! \(secretNumber) is my number!"
-            messageSymbol = "star.circle.fill"
+            messageSymbol = "laser.burst"
             messageColor = Color.green
             gameIsOver = true
         } else {
             // TRY: Change this message. Make it kinder, or sillier.
             message = "Nope, not \(guess) have another go!"
-            messageSymbol = "xmark.circle.fill"
+            messageSymbol = "hand.thumbsdown.fill"
             messageColor = Color.orange
         }
     }
